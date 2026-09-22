@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SeattlePulse - Project Breakdown</title>
+    <style>
+        :root {
+            --bg: #101114;
+            --bg-soft: #17191e;
+            --line: rgba(255, 255, 255, 0.2);
+            --text: #f5f5f2;
+            --muted: #c4c6ce;
+            --accent: #c7ff3d;
+            --accent-2: #ff7a59;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--text);
+            background:
+                repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.045) 0 1px, transparent 1px 48px),
+                repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 48px),
+                radial-gradient(circle at 14% 5%, rgba(255, 122, 89, 0.12), transparent 28%),
+                radial-gradient(circle at 85% 0%, rgba(199, 255, 61, 0.1), transparent 32%),
+                linear-gradient(145deg, var(--bg) 0%, var(--bg-soft) 45%, #121316 100%);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .wrapper { width: min(1050px, calc(100% - 28px)); margin: 28px auto 36px; }
+
+        .hero, .card { border-top: 1px solid var(--line); }
+        .hero { padding: 30px; margin-bottom: 16px; }
+
+        .kicker {
+            display: inline-block;
+            margin-bottom: 11px;
+            color: var(--accent-2);
+            letter-spacing: 1.3px;
+            text-transform: uppercase;
+            font-size: 0.82rem;
+        }
+
+        h1 { font-size: clamp(2.1rem, 4.8vw, 3.2rem); line-height: 1.08; margin-bottom: 10px; letter-spacing: -1px; }
+        h2 { font-size: 1.27rem; margin-bottom: 9px; }
+        .hero p, .card p { color: var(--muted); }
+        .hero p { max-width: 78ch; margin-bottom: 18px; }
+
+        .cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }
+        .btn { display: inline-block; text-decoration: none; border-radius: 12px; padding: 10px 15px; font-weight: 700; }
+        .btn-primary { background: var(--accent); color: #111; }
+        .btn-secondary { border: 1px solid var(--line); color: var(--text); background: rgba(255, 255, 255, 0.06); }
+
+        .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+        .stat { border-radius: 14px; border: 1px solid var(--line); padding: 12px; text-align: center; }
+        .stat strong { display: block; font-size: 1.15rem; margin-bottom: 2px; }
+        .stat span { color: var(--muted); font-size: 0.86rem; }
+
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 14px; }
+        .card { padding: 22px; margin-bottom: 14px; }
+        .list { color: var(--muted); margin-left: 18px; display: grid; gap: 6px; }
+
+        .shot-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 14px; }
+        .shot { border-radius: 16px; overflow: hidden; border: 1px solid var(--line); background: rgba(7, 12, 24, 0.8); }
+        .shot img { display: block; width: 100%; height: auto; }
+        .shot-placeholder {
+            min-height: 230px;
+            display: grid;
+            place-items: center;
+            text-align: center;
+            padding: 18px;
+            color: #dceaff;
+            font-weight: 700;
+            background:
+                linear-gradient(145deg, rgba(255, 122, 89, 0.12), rgba(199, 255, 61, 0.1)),
+                repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.06) 0 10px, rgba(255, 255, 255, 0.02) 10px 20px);
+        }
+        .shot figcaption { padding: 10px; color: var(--muted); font-size: 0.88rem; }
+
+        footer { text-align: center; color: var(--muted); margin-top: 16px; font-size: 0.9rem; }
+
+        @media (max-width: 900px) {
+            .grid, .shot-grid, .stats { grid-template-columns: 1fr; }
+            .hero, .card { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <main class="wrapper">
+        <section class="hero">
+            <span class="kicker">Project Deep Dive</span>
+            <h1>SeattlePulse</h1>
+            <p>
+                A Seattle-focused app that turns weather, transit, sports, events, and traffic data into one useful picture of the city.
+                Instead of making people interpret five separate feeds, SeattlePulse calculates transportation impact and surfaces the information most likely to affect their plans.
+            </p>
+            <div class="cta-row">
+                <a class="btn btn-primary" href="https://github.com/benjaminsnook3/seattlepulse" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+                <a class="btn btn-secondary" href="../Untitled-1.html#projects">Back to Portfolio</a>
+            </div>
+
+            <div class="stats">
+                <div class="stat"><strong>Kotlin</strong><span>Spring Boot backend</span></div>
+                <div class="stat"><strong>Android</strong><span>Compose client</span></div>
+                <div class="stat"><strong>0-100</strong><span>Transportation impact score</span></div>
+                <div class="stat"><strong>5 feeds</strong><span>City signals in one view</span></div>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>What It Solves</h2>
+            <p>
+                Seattle conditions are shaped by several systems at once. A rainy commute, a Link disruption, and a game near the stadiums can each matter on their own, but the useful answer is how they combine. SeattlePulse normalizes those signals and explains the resulting level of transportation pressure with human-readable factors.
+            </p>
+        </section>
+
+        <section class="grid">
+            <article class="card">
+                <h2>How It Was Built</h2>
+                <ul class="list">
+                    <li>Built a Spring Boot Kotlin backend with REST endpoints for weather, transit, sports, events, traffic, alerts, and dashboard data.</li>
+                    <li>Normalized provider records into canonical models and stored them with Spring Data JPA.</li>
+                    <li>Created an impact engine that weighs disruptions and nearby events across four capped categories.</li>
+                    <li>Added location-aware neighborhood views without requiring location permission in the backend.</li>
+                    <li>Connected the API to an Android Compose app using Retrofit, with notification policies to prevent alert spam.</li>
+                </ul>
+            </article>
+
+            <article class="card">
+                <h2>Technical Stack</h2>
+                <ul class="list">
+                    <li>Backend: Kotlin + Spring Boot</li>
+                    <li>Persistence: H2 + Spring Data JPA</li>
+                    <li>Android: Jetpack Compose + Material 3</li>
+                    <li>Networking: Retrofit + OkHttp</li>
+                    <li>Providers: Open-Meteo, Sound Transit, King County Metro, ESPN, Ticketmaster</li>
+                </ul>
+            </article>
+        </section>
+
+        <section class="card">
+            <h2>App Screenshots</h2>
+            <p>Recent Android dashboard screenshots showing transit alerts, impact details, and city-wide conditions.</p>
+            <div class="shot-grid">
+                <figure class="shot"><img src="../Screenshot_20260922-130902.png" alt="SeattlePulse dashboard showing transit alerts" /><figcaption>Dashboard: weather, impact score, and city-wide signals.</figcaption></figure>
+                <figure class="shot"><img src="../Screenshot_20260922-130913.png" alt="SeattlePulse dashboard with impact details" /><figcaption>Impact breakdown: the factors behind the current score.</figcaption></figure>
+                <figure class="shot"><img src="../Screenshot_20260922-131006.png" alt="SeattlePulse transit alerts view" /><figcaption>Alerts: prioritized transit, traffic, and event notifications.</figcaption></figure>
+                <figure class="shot"><img src="../Screenshot_20260922-131035.png" alt="SeattlePulse city conditions view" /><figcaption>Your area: neighborhood-aware conditions and nearby events.</figcaption></figure>
+            </div>
+        </section>
+
+        <footer>SeattlePulse is an ongoing project built to make city data easier to act on.</footer>
+    </main>
+</body>
+</html>

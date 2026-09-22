@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>More About Benjamin</title>
+    <style>
+        @font-face {
+            font-family: "Minecraft";
+            src: url("fonts/MinecraftRegular.otf") format("opentype");
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        :root {
+            --bg: #101114;
+            --bg-2: #17191e;
+            --panel: transparent;
+            --line: rgba(255, 255, 255, 0.15);
+            --text: #f5f5f2;
+            --muted: #c4c6ce;
+            --accent: #c7ff3d;
+            --accent-2: #ff7a59;
+            --radius: 22px;
+            --shadow: 0 16px 44px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--text);
+            background:
+                repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.045) 0 1px, transparent 1px 48px),
+                repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 48px),
+                radial-gradient(circle at 14% 12%, rgba(255, 122, 89, 0.12), transparent 28%),
+                radial-gradient(circle at 86% 8%, rgba(199, 255, 61, 0.1), transparent 26%),
+                linear-gradient(150deg, var(--bg) 0%, var(--bg-2) 56%, #121316 100%);
+            min-height: 100vh;
+        }
+
+        .wrapper {
+            width: min(1100px, calc(100% - 30px));
+            margin: 26px auto 40px;
+        }
+
+        .glass {
+            background: transparent;
+            border: 0;
+            border-radius: 0;
+            box-shadow: none;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 18px;
+            margin-bottom: 18px;
+            background: #000;
+        }
+
+        .topbar h1 {
+            font-size: clamp(1.3rem, 2vw, 1.8rem);
+            letter-spacing: 0.2px;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: #10162d;
+            background: var(--accent);
+            padding: 10px 14px;
+            border-radius: 999px;
+            font-weight: 700;
+        }
+
+        .hero {
+            padding: 24px;
+            margin-bottom: 18px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .kicker {
+            font-family: "Minecraft", Arial, sans-serif;
+            color: var(--accent-2);
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        .hero h2 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            line-height: 1.03;
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            color: var(--muted);
+            line-height: 1.7;
+            max-width: 72ch;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            margin-bottom: 18px;
+        }
+
+        .card {
+            padding: 22px;
+            border-top: 1px solid var(--line);
+        }
+
+        .card h3 {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .card p {
+            color: var(--muted);
+            line-height: 1.65;
+            margin-bottom: 10px;
+        }
+
+        .favorites-list {
+            margin-left: 18px;
+            color: var(--muted);
+            display: grid;
+            gap: 8px;
+            line-height: 1.55;
+        }
+
+        .favorites-list strong {
+            color: var(--text);
+        }
+
+        .pill-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .pill {
+            padding: 8px 12px;
+            border-radius: 999px;
+            font-size: 0.9rem;
+            color: #111;
+            font-weight: 700;
+        }
+
+        .pill:nth-child(4n+1) { background: var(--accent); }
+        .pill:nth-child(4n+2) { background: var(--accent-2); }
+        .pill:nth-child(4n+3) { background: rgba(255, 255, 255, 0.1); color: var(--text); }
+        .pill:nth-child(4n+4) { background: var(--accent); }
+
+        .photo-section {
+            padding: 22px;
+            border-top: 1px solid var(--line);
+        }
+
+        .photo-section h3 {
+            margin-bottom: 12px;
+            font-size: 1.3rem;
+        }
+
+        .photo-section p {
+            color: var(--muted);
+            margin-bottom: 14px;
+        }
+
+        .photos {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .photos img {
+            width: 100%;
+            height: 210px;
+            object-fit: cover;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.24);
+            cursor: zoom-in;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .photos img:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent);
+        }
+
+        .gallery-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(5, 8, 16, 0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 24px;
+        }
+
+        .gallery-modal.is-open {
+            display: flex;
+        }
+
+        .gallery-modal img {
+            max-width: min(96vw, 1200px);
+            max-height: 84vh;
+            width: auto;
+            height: auto;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            box-shadow: 0 16px 46px rgba(0, 0, 0, 0.55);
+        }
+
+        .gallery-modal-btn {
+            position: absolute;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            background: rgba(18, 24, 42, 0.74);
+            color: #fff;
+            width: 48px;
+            height: 48px;
+            border-radius: 999px;
+            font-size: 1.7rem;
+            line-height: 1;
+            cursor: pointer;
+            display: grid;
+            place-items: center;
+        }
+
+        .gallery-close {
+            top: 18px;
+            right: 20px;
+            font-size: 2rem;
+        }
+
+        .gallery-prev {
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .gallery-next {
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .gallery-counter {
+            position: absolute;
+            bottom: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #d6dcf5;
+            font-size: 0.92rem;
+            letter-spacing: 0.3px;
+            background: rgba(18, 24, 42, 0.72);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 999px;
+            padding: 8px 12px;
+        }
+
+        footer {
+            text-align: center;
+            color: var(--muted);
+            margin-top: 16px;
+            font-size: 0.92rem;
+        }
+
+        @media (max-width: 980px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .photos {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 640px) {
+            .wrapper {
+                width: min(1100px, calc(100% - 20px));
+            }
+
+            .topbar {
+                padding: 12px;
+            }
+
+            .hero,
+            .card,
+            .photo-section {
+                padding: 16px;
+            }
+
+            .photos {
+                grid-template-columns: 1fr;
+            }
+
+            .photos img {
+                height: auto;
+            }
+
+            .gallery-modal {
+                padding: 12px;
+            }
+
+            .gallery-modal-btn {
+                width: 42px;
+                height: 42px;
+            }
+
+            .gallery-prev {
+                left: 10px;
+            }
+
+            .gallery-next {
+                right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="wrapper">
+        <header class="topbar glass">
+            <h1>More About Me</h1>
+            <a class="back-link" href="Untitled-1.html">Back to Resume</a>
+        </header>
+
+        <section class="hero glass">
+            <span class="kicker">Beyond Work</span>
+            <h2>How I Spend My Time Outside of Marketing</h2>
+            <p>
+                Outside of work, I love making creative things and learning new tools. A lot of my free time goes into drawing,
+                animation, game development, and music. I play drums and guitar, and I enjoy building projects that blend storytelling,
+                design, and technology.
+            </p>
+        </section>
+
+        <section class="grid">
+            <article class="card glass">
+                <h3>What I Do In My Free Time</h3>
+                <p>
+                    I spend my free time creating and experimenting across art, music, and interactive media.
+                    I like turning ideas into finished work, whether that is a sketch, animation, small game, or song.
+                </p>
+                <div class="pill-row">
+                    <span class="pill">Drawing</span>
+                    <span class="pill">Animation</span>
+                    <span class="pill">Game Dev</span>
+                    <span class="pill">Drums</span>
+                    <span class="pill">Guitar</span>
+                </div>
+            </article>
+
+            <article class="card glass">
+                <h3>Favorites</h3>
+                <ul class="favorites-list">
+                    <li><strong>Favorite movies:</strong> Goodfellas, Moon, The Iron Giant, Superbad</li>
+                    <li><strong>Favorite bands:</strong> Sunny Day Real Estate, blink-182, Hum, Ride</li>
+                    <li><strong>Favorite games:</strong> Minecraft, Terraria, Halo, Risk of Rain 2, Mewgenics</li>
+                </ul>
+            </article>
+        </section>
+
+        <section class="photo-section glass">
+            <h3>Photo Gallery</h3>
+            <p>A few snapshots from my projects and everyday life.</p>
+            <div class="photos">
+                <img src="pictures/653086288.jpg" alt="Gallery image 1" />
+                <img src="pictures/cards.png" alt="Gallery image 2" />
+                <img src="pictures/gamebg.png" alt="Gallery image 3" />
+                <img src="pictures/Screenshot 2025-09-29 203428.png" alt="Gallery image 4" />
+                <img src="pictures/Screenshot 2025-09-29 203444.png" alt="Gallery image 5" />
+                <img src="pictures/Screenshot 2025-09-29 203506.png" alt="Gallery image 6" />
+                <img src="pictures/Screenshot 2025-12-26 113643.png" alt="Gallery image 7" />
+                <img src="pictures/Screenshot 2025-12-26 113657.png" alt="Gallery image 8" />
+                <img src="pictures/title1.png" alt="Gallery image 9" />
+                <img src="pictures/unnamed.jpg" alt="Gallery image 10" />
+                <img src="pictures/mainmenubuttons.png" alt="Gallery image 11" />
+                <img src="pictures/princess.png" alt="Gallery image 12" />
+            </div>
+        </section>
+
+        <footer>
+            Benjamin Snook - More About Me
+        </footer>
+    </main>
+
+    <div class="gallery-modal" id="galleryModal" aria-hidden="true">
+        <button class="gallery-modal-btn gallery-close" id="galleryClose" type="button" aria-label="Close slideshow">&times;</button>
+        <button class="gallery-modal-btn gallery-prev" id="galleryPrev" type="button" aria-label="Previous image">&#8592;</button>
+        <img id="galleryModalImage" src="" alt="Expanded gallery image" />
+        <button class="gallery-modal-btn gallery-next" id="galleryNext" type="button" aria-label="Next image">&#8594;</button>
+        <div class="gallery-counter" id="galleryCounter"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const galleryImages = Array.from(document.querySelectorAll('.photos img'));
+            const modal = document.getElementById('galleryModal');
+            const modalImage = document.getElementById('galleryModalImage');
+            const closeBtn = document.getElementById('galleryClose');
+            const prevBtn = document.getElementById('galleryPrev');
+            const nextBtn = document.getElementById('galleryNext');
+            const counter = document.getElementById('galleryCounter');
+
+            if (!galleryImages.length || !modal || !modalImage || !closeBtn || !prevBtn || !nextBtn || !counter) {
+                return;
+            }
+
+            let currentIndex = 0;
+
+            const updateModal = function() {
+                const source = galleryImages[currentIndex];
+                modalImage.src = source.src;
+                modalImage.alt = source.alt || 'Expanded gallery image';
+                counter.textContent = `${currentIndex + 1} / ${galleryImages.length}`;
+            };
+
+            const openModal = function(index) {
+                currentIndex = index;
+                updateModal();
+                modal.classList.add('is-open');
+                modal.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+            };
+
+            const closeModal = function() {
+                modal.classList.remove('is-open');
+                modal.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+            };
+
+            const showPrev = function() {
+                currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+                updateModal();
+            };
+
+            const showNext = function() {
+                currentIndex = (currentIndex + 1) % galleryImages.length;
+                updateModal();
+            };
+
+            galleryImages.forEach((img, index) => {
+                img.addEventListener('click', function() {
+                    openModal(index);
+                });
+            });
+
+            closeBtn.addEventListener('click', closeModal);
+            prevBtn.addEventListener('click', showPrev);
+            nextBtn.addEventListener('click', showNext);
+
+            modal.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    closeModal();
+                }
+            });
+
+            document.addEventListener('keydown', function(event) {
+                if (!modal.classList.contains('is-open')) {
+                    return;
+                }
+
+                if (event.key === 'Escape') {
+                    closeModal();
+                } else if (event.key === 'ArrowLeft') {
+                    showPrev();
+                } else if (event.key === 'ArrowRight') {
+                    showNext();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

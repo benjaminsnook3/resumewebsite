@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BuniMunki Project Details</title>
+    <style>
+        :root {
+            --bg: #101114;
+            --bg-soft: #17191e;
+            --text: #f5f5f2;
+            --muted: #c4c6ce;
+            --line: rgba(255, 255, 255, 0.16);
+            --accent: #c7ff3d;
+            --accent-2: #ff7a59;
+            --radius: 24px;
+            --shadow: 0 20px 50px rgba(0, 0, 0, 0.28);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--text);
+            background:
+                repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.045) 0 1px, transparent 1px 48px),
+                repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 48px),
+                radial-gradient(circle at 15% 10%, rgba(255, 122, 89, 0.12), transparent 25%),
+                radial-gradient(circle at 90% 0%, rgba(199, 255, 61, 0.1), transparent 24%),
+                linear-gradient(140deg, var(--bg) 0%, var(--bg-soft) 100%);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .wrapper {
+            width: min(980px, calc(100% - 28px));
+            margin: 28px auto 42px;
+        }
+
+        .glass {
+            background: transparent;
+            border: 0;
+            border-radius: 0;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            box-shadow: none;
+        }
+
+        .hero {
+            padding: 30px;
+            margin-bottom: 18px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .kicker {
+            display: inline-block;
+            margin-bottom: 12px;
+            font-size: 0.82rem;
+            letter-spacing: 1.3px;
+            text-transform: uppercase;
+            color: var(--accent-2);
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.1rem);
+            line-height: 1.05;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            color: var(--muted);
+            max-width: 70ch;
+            margin-bottom: 20px;
+        }
+
+        .cta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            border-radius: 12px;
+            padding: 11px 16px;
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #111;
+        }
+
+        .btn-secondary {
+            border: 1px solid var(--line);
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .screenshots {
+            padding: 22px;
+            margin-bottom: 16px;
+            border-top: 1px solid var(--line);
+        }
+
+        .screenshots h2 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+        }
+
+        .screenshots p {
+            color: var(--muted);
+            margin-bottom: 14px;
+        }
+
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 14px;
+        }
+
+        .shot-link {
+            display: block;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .shot-link:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent);
+        }
+
+        .shot-link img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .card {
+            padding: 22px;
+            border-top: 1px solid var(--line);
+        }
+
+        .card h2 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+        }
+
+        .card p {
+            color: var(--muted);
+        }
+
+        .list {
+            margin-top: 8px;
+            margin-left: 18px;
+            color: var(--muted);
+            display: grid;
+            gap: 6px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 14px;
+        }
+
+        .stat {
+            border-radius: 14px;
+            border: 1px solid var(--line);
+            background: transparent;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 1.35rem;
+            margin-bottom: 3px;
+        }
+
+        .stat span {
+            color: var(--muted);
+            font-size: 0.86rem;
+        }
+
+        footer {
+            text-align: center;
+            color: var(--muted);
+            margin-top: 18px;
+            font-size: 0.92rem;
+        }
+
+        @media (max-width: 800px) {
+            .grid,
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .hero,
+            .card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="wrapper">
+        <section class="hero glass">
+            <span class="kicker">Project Deep Dive</span>
+            <h1>BuniMunki</h1>
+            <p>
+                BuniMunki is an independently operated Etsy brand focused on original designs and customer-first ecommerce execution.
+                This page provides a fuller view of the strategy, operations, and outcomes behind the project.
+            </p>
+            <div class="cta-row">
+                <a class="btn btn-primary" href="https://www.etsy.com/shop/BuniMunki" target="_blank" rel="noopener noreferrer">Visit Etsy Shop</a>
+                <a class="btn btn-secondary" href="../Untitled-1.html#projects">Back to Projects</a>
+            </div>
+
+            <div class="stats">
+                <div class="stat">
+                    <strong>112+</strong>
+                    <span>Etsy Sales</span>
+                </div>
+                <div class="stat">
+                    <strong>5-Star</strong>
+                    <span>Shop Reputation</span>
+                </div>
+                <div class="stat">
+                    <strong>End-to-End</strong>
+                    <span>Owner Operations</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="screenshots glass">
+            <h2>Project Screenshots</h2>
+            <p>
+                Etsy storefront and performance snapshots from the BuniMunki project.
+            </p>
+            <div class="screenshot-grid">
+                <a class="shot-link" href="shop%20landing%20page.png" target="_blank" rel="noopener noreferrer">
+                    <img src="shop%20landing%20page.png" alt="BuniMunki Etsy shop landing page" />
+                </a>
+                <a class="shot-link" href="shop%20stats.png" target="_blank" rel="noopener noreferrer">
+                    <img src="shop%20stats.png" alt="BuniMunki Etsy shop stats dashboard" />
+                </a>
+            </div>
+        </section>
+
+        <section class="grid">
+            <article class="card glass">
+                <h2>Project Scope</h2>
+                <p>
+                    Built and scaled a product-based digital storefront by owning all major functions: product concepting,
+                    listing optimization, branding, fulfillment workflows, and customer communication.
+                </p>
+            </article>
+
+            <article class="card glass">
+                <h2>Core Responsibilities</h2>
+                <ul class="list">
+                    <li>Brand identity and product presentation</li>
+                    <li>Product listing copy and search-focused keywords</li>
+                    <li>Order management and fulfillment quality control</li>
+                    <li>Customer support and review management</li>
+                </ul>
+            </article>
+
+            <article class="card glass">
+                <h2>Marketing Strategy</h2>
+                <ul class="list">
+                    <li>Consistent visual storytelling across listings</li>
+                    <li>Price and offer testing for conversion improvement</li>
+                    <li>Seasonal product planning and launch timing</li>
+                    <li>Continuous iteration based on customer feedback</li>
+                </ul>
+            </article>
+
+            <article class="card glass">
+                <h2>Impact</h2>
+                <p>
+                    The project demonstrates practical digital marketing, ecommerce operations, and creative entrepreneurship.
+                    It also reflects the ability to combine design thinking with measurable business outcomes in a real-world environment.
+                </p>
+            </article>
+        </section>
+
+        <footer>
+            BuniMunki project profile page
+        </footer>
+    </main>
+</body>
+</html>

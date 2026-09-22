@@ -1,0 +1,2214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Colorburst Portfolio</title>
+    <style>
+        @font-face {
+            font-family: "Minecraft";
+            src: url("fonts/MinecraftRegular.otf") format("opentype");
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        :root {
+            --bg: #101114;
+            --panel: rgba(255, 255, 255, 0.1);
+            --text: #f5f5f2;
+            --muted: #c4c6ce;
+            --line: rgba(255, 255, 255, 0.18);
+            --accent: #c7ff3d;
+            --accent-2: #ff7a59;
+            --shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+            --radius: 24px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--text);
+            background:
+                repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.045) 0 1px, transparent 1px 48px),
+                repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 48px),
+                radial-gradient(circle at 18% 16%, rgba(255, 122, 89, 0.12), transparent 24%),
+                radial-gradient(circle at 84% 22%, rgba(199, 255, 61, 0.1), transparent 22%),
+                linear-gradient(135deg, #101114 0%, #17191e 52%, #121316 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .bg-shape {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(12px);
+            opacity: 0.35;
+            z-index: 0;
+            animation: float 10s ease-in-out infinite;
+        }
+
+        .shape-1 {
+            width: 260px;
+            height: 260px;
+            top: 80px;
+            left: -60px;
+            background: linear-gradient(135deg, var(--accent-2), var(--accent));
+        }
+
+        .shape-2 {
+            width: 320px;
+            height: 320px;
+            right: -80px;
+            top: 180px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            animation-delay: 1s;
+        }
+
+        .shape-3 {
+            width: 220px;
+            height: 220px;
+            bottom: 60px;
+            left: 12%;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            animation-delay: 2s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) translateX(0px); }
+            50% { transform: translateY(-18px) translateX(10px); }
+        }
+
+        .wrapper {
+            position: relative;
+            z-index: 1;
+            width: min(1150px, calc(100% - 32px));
+            margin: 0 auto;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            column-gap: 24px;
+            row-gap: 18px;
+            align-items: flex-start;
+        }
+
+        nav,
+        header.hero,
+        #projects,
+        #certifications,
+        #contact,
+        footer {
+            flex: 0 0 100%;
+        }
+
+        nav { order: 0; }
+        header.hero { order: 1; }
+        #about,
+        #journey {
+            flex: 0 0 calc(50% - 12px);
+        }
+        #about { order: 2; }
+        #journey { order: 3; }
+        #projects { order: 4; }
+        #certifications { order: 5; }
+        #contact { order: 6; }
+        footer { order: 7; }
+
+        .glass {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            box-shadow: var(--shadow);
+            border-radius: var(--radius);
+        }
+
+        nav {
+            position: sticky;
+            top: 16px;
+            z-index: 50;
+            margin: 16px auto 24px;
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #000;
+            border: 0;
+            box-shadow: none;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .brand-badge {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--accent-2), var(--accent));
+            display: grid;
+            place-items: center;
+            color: #111;
+            font-weight: 900;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            padding: 10px 14px;
+            border-radius: 999px;
+            transition: 0.25s ease;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-2px);
+        }
+
+        header.hero {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 24px;
+            padding: 30px 0 10px;
+            align-items: stretch;
+        }
+
+        .hero-card,
+        .hero-art {
+            padding: 34px;
+            min-height: 420px;
+        }
+
+        .hero-card {
+            background: transparent;
+            border: 0;
+            box-shadow: none;
+        }
+
+        .hero-art {
+            background: transparent;
+            border: 0;
+            box-shadow: none;
+            padding: 0;
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 14px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--muted);
+            font-size: 0.92rem;
+            margin-bottom: 18px;
+        }
+
+        .tag-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 15px rgba(199, 255, 61, 0.55);
+        }
+
+        h1 {
+            font-size: clamp(2.6rem, 6vw, 5rem);
+            line-height: 0.95;
+            letter-spacing: -2px;
+            margin-bottom: 16px;
+        }
+
+        .accent {
+            background: linear-gradient(135deg, var(--accent-2), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-card p {
+            color: var(--muted);
+            max-width: 58ch;
+            font-size: 1.05rem;
+            line-height: 1.65;
+            margin-bottom: 26px;
+        }
+
+        .cta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            text-decoration: none;
+            color: #111;
+            background: var(--accent);
+            padding: 13px 18px;
+            border-radius: 14px;
+            font-weight: bold;
+            transition: 0.25s ease;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(45, 226, 230, 0.22);
+        }
+
+        .btn.alt {
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--line);
+        }
+
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+
+        .stat {
+            padding: 16px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .stat-link {
+            display: block;
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .stat-link:hover,
+        .stat-link:focus-visible {
+            border-color: var(--accent);
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 1.6rem;
+            margin-bottom: 4px;
+        }
+
+        .stat span {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .hero-art {
+            position: relative;
+            overflow: hidden;
+            display: grid;
+            place-items: center;
+        }
+
+        .speech-bubble {
+            position: absolute;
+            top: 18px;
+            left: 18px;
+            right: 18px;
+            max-width: calc(100% - 36px);
+            padding: 14px 16px;
+            border-radius: 14px;
+            background: #fff;
+            border: 3px solid #111;
+            color: #000;
+            font-family: "Minecraft", "Arial", sans-serif;
+            font-size: 0.98rem;
+            line-height: 1.4;
+            opacity: 0;
+            transform: translateY(-6px);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            pointer-events: none;
+            z-index: 2;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
+        }
+
+        .speech-bubble::after {
+            content: "";
+            position: absolute;
+            bottom: -14px;
+            left: 32px;
+            border-width: 14px 10px 0 10px;
+            border-style: solid;
+            border-color: #111 transparent transparent transparent;
+        }
+
+        .speech-bubble::before {
+            content: "";
+            position: absolute;
+            bottom: -9px;
+            left: 35px;
+            border-width: 11px 7px 0 7px;
+            border-style: solid;
+            border-color: #fff transparent transparent transparent;
+            z-index: 1;
+        }
+
+        .hero-art.is-talking .speech-bubble {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero-photo {
+            width: 100%;
+            height: 100%;
+            border-radius: 22px;
+            object-fit: cover;
+            object-position: center 20%;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+        }
+
+        .art-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+            background-size: 24px 24px;
+            mask-image: radial-gradient(circle at center, black 40%, transparent 85%);
+        }
+
+        .portrait {
+            width: min(320px, 100%);
+            aspect-ratio: 1 / 1.12;
+            border-radius: 30px;
+            background:
+                radial-gradient(circle at 25% 25%, rgba(255,255,255,0.45), transparent 18%),
+                linear-gradient(135deg, rgba(255,122,89,0.95), rgba(199,255,61,0.9));
+            padding: 18px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.28);
+            transform: rotate(-4deg);
+        }
+
+        .portrait-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 22px;
+            background:
+                linear-gradient(145deg, rgba(15,16,33,0.88), rgba(34,35,80,0.7)),
+                radial-gradient(circle at top right, rgba(255,255,255,0.18), transparent 30%);
+            border: 1px solid rgba(255,255,255,0.14);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portrait-inner::before {
+            content: "";
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            right: -25px;
+            top: -25px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.18), transparent);
+            border-radius: 50%;
+        }
+
+        .portrait-kicker {
+            color: var(--accent);
+            font-size: 0.9rem;
+            letter-spacing: 1.6px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .portrait-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .portrait-text {
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        section {
+            padding: 18px 0;
+        }
+
+        .section-head {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+
+        .section-head h2 {
+            font-size: clamp(1.7rem, 3vw, 2.4rem);
+            letter-spacing: -1px;
+        }
+
+        .section-head p {
+            color: var(--muted);
+            max-width: 60ch;
+        }
+
+        #projects .section-head {
+            display: block;
+            text-align: center;
+        }
+
+        #projects .section-head p {
+            margin: 8px auto 0;
+        }
+
+        #certifications .section-head,
+        #contact .section-head {
+            display: block;
+            text-align: center;
+        }
+
+        #certifications .section-head p,
+        #contact .section-head p {
+            margin: 8px auto 0;
+        }
+
+        .about {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .about-card,
+        .skills-card,
+        .contact-card {
+            padding: 28px;
+        }
+
+        .about-card,
+        .contact-card {
+            background: transparent;
+            border: 0;
+            box-shadow: none;
+        }
+
+        .about-card p,
+        .contact-card p {
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .mini-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+            margin-top: 18px;
+        }
+
+        .mini {
+            padding: 16px;
+            border-radius: 18px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.12);
+        }
+
+        .mini h3 {
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .mini p {
+            font-size: 0.94rem;
+        }
+
+        .skills-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .chip {
+            padding: 12px 14px;
+            border-radius: 999px;
+            font-size: 0.95rem;
+            color: #111;
+            font-weight: bold;
+        }
+
+        .chip:nth-child(5n+1) { background: var(--accent-2); }
+        .chip:nth-child(5n+2) { background: var(--accent); }
+        .chip:nth-child(5n+3) { background: rgba(255, 255, 255, 0.1); color: var(--text); }
+        .chip:nth-child(5n+4) { background: var(--accent-2); }
+        .chip:nth-child(5n+5) { background: var(--accent); }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0 32px;
+        }
+
+        .project {
+            padding: 28px;
+            position: relative;
+            overflow: hidden;
+            min-height: 280px;
+            border-radius: 18px;
+            border: 1px solid var(--line);
+            background: #17191e;
+            box-shadow: none;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-featured {
+            grid-column: 1 / -1;
+        }
+
+        .project::before {
+            content: none;
+        }
+
+        .project-featured {
+            min-height: 380px;
+            padding: 40px;
+            border-color: rgba(199, 255, 61, 0.42);
+            background: #17191e;
+        }
+
+        .project-featured .label {
+            color: var(--accent);
+        }
+
+        .project-preview-chips {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .project-preview-chips li {
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            background: rgba(15, 16, 33, 0.42);
+            padding: 6px 10px;
+            font-size: 0.8rem;
+            color: #e8f6ff;
+        }
+
+        .project::before {
+            content: none;
+        }
+
+        .project .label {
+            display: inline-block;
+            margin-bottom: 14px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.4px;
+            color: var(--accent-2);
+        }
+
+        .project h3 {
+            margin-bottom: 12px;
+            font-size: 1.25rem;
+        }
+
+        .project p {
+            color: var(--muted);
+            line-height: 1.6;
+            margin-bottom: 18px;
+        }
+
+        .project-key-points p {
+            color: var(--text);
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .project-key-points ul {
+            margin-left: 18px;
+            color: var(--muted);
+            line-height: 1.5;
+            display: grid;
+            gap: 6px;
+            margin-bottom: 18px;
+        }
+
+        .project a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .project a.btn {
+            color: #111;
+            align-self: flex-start;
+            margin-top: auto;
+        }
+
+        .cert-thumb-link {
+            display: block;
+            margin-top: 10px;
+            width: 100%;
+            max-width: 230px;
+        }
+
+        .cert-thumb {
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.22);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .cert-thumb-link:hover .cert-thumb {
+            transform: translateY(-2px);
+            border-color: var(--accent);
+        }
+
+        .cert-pdf-thumb {
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            border-radius: 12px;
+            border: 1px dashed rgba(255, 255, 255, 0.35);
+            display: grid;
+            place-items: center;
+            color: var(--muted);
+            background: rgba(255, 255, 255, 0.04);
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+
+        .trophy-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 18px 28px;
+            justify-items: center;
+        }
+
+        .trophy-case {
+            position: relative;
+            padding: 0;
+            overflow: visible;
+            z-index: 1;
+        }
+
+        .trophy-case::before {
+            content: none;
+        }
+
+        .trophy-case::after {
+            content: "";
+            position: absolute;
+            left: 18px;
+            right: 18px;
+            bottom: 14px;
+            height: 14px;
+            border-radius: 10px;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.35));
+            pointer-events: none;
+        }
+
+        .trophy-case-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: fit-content;
+            margin: 0 auto 22px;
+            padding: 0 0 18px;
+            border-radius: 0;
+            border: 0;
+            background: transparent;
+            color: #e8eeff;
+            font-size: 1.02rem;
+            letter-spacing: 1.4px;
+            font-weight: 700;
+            text-transform: uppercase;
+            box-shadow: none;
+        }
+
+        .trophy-item {
+            flex: none;
+            width: auto;
+            padding: 18px 0;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: visible;
+            isolation: isolate;
+            background: transparent;
+            border: 0;
+            border-top: 1px solid var(--line);
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        .trophy-item:hover,
+        .trophy-item:focus-within {
+            z-index: 12;
+        }
+
+        .trophy-item.glass {
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+        }
+
+        .trophy-item::before {
+            content: none;
+        }
+
+        .trophy-item::after {
+            content: none;
+        }
+
+        .trophy-item > * {
+            position: relative;
+            z-index: 3;
+        }
+
+        .trophy-link {
+            width: 100%;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 4px;
+            margin-bottom: 12px;
+        }
+
+        .trophy-emblem {
+            width: 114px;
+            height: 134px;
+            border-radius: 24px 24px 18px 18px;
+            border: 2px solid rgba(255, 255, 255, 0.22);
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+            font-size: 1.05rem;
+            color: #0f1021;
+            box-shadow: 0 16px 26px rgba(0, 0, 0, 0.28);
+            position: relative;
+            transition: transform 0.24s ease, box-shadow 0.24s ease;
+        }
+
+        .trophy-emblem::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: -18px;
+            transform: translateX(-50%);
+            width: 54px;
+            height: 20px;
+            border-radius: 8px;
+            background: linear-gradient(180deg, #c7ccd7, #8d95a9);
+            border: 2px solid rgba(17, 17, 17, 0.4);
+        }
+
+        .logo-google {
+            background: conic-gradient(from 220deg, #34a853, #4285f4, #ea4335, #fbbc05, #34a853);
+        }
+
+        .logo-ibm {
+            background: repeating-linear-gradient(180deg, #4db0ff 0 8px, #1b66b1 8px 14px);
+            color: #e9f4ff;
+        }
+
+        .logo-hubspot {
+            background: linear-gradient(155deg, #ffb36a, #ff7a59 60%);
+        }
+
+        .logo-hootsuite {
+            background: linear-gradient(155deg, #f8f9fd, #d1d8e6);
+            color: #10162b;
+        }
+
+        .logo-sql {
+            background: linear-gradient(155deg, #82f2ff, #2de2e6);
+        }
+
+        .trophy-hover {
+            position: absolute;
+            inset: auto 8px 100px 8px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            background: rgba(11, 15, 28, 0.9);
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            pointer-events: none;
+            padding: 12px;
+            min-height: 96px;
+            z-index: 24;
+        }
+
+        .trophy-hover-title {
+            display: block;
+            color: #f7f7ff;
+            font-size: 0.82rem;
+            line-height: 1.34;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .trophy-hover img {
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 8px;
+        }
+
+        .trophy-hover span {
+            color: var(--muted);
+            font-size: 0.82rem;
+            letter-spacing: 0.3px;
+            line-height: 1.3;
+        }
+
+        .trophy-hover-pdf {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .trophy-hover-file {
+            width: 100%;
+            min-height: 66px;
+            border-radius: 8px;
+            border: 1px dashed rgba(255, 255, 255, 0.34);
+            background: linear-gradient(160deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
+            display: grid;
+            place-items: center;
+            color: #e9edff;
+            font-size: 0.76rem;
+            letter-spacing: 0.7px;
+            text-transform: uppercase;
+            font-weight: 700;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .trophy-item:hover .trophy-hover,
+        .trophy-link:focus-visible .trophy-hover {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .trophy-item:hover .trophy-emblem,
+        .trophy-link:focus-visible .trophy-emblem {
+            transform: translateY(-3px);
+            box-shadow: 0 18px 30px rgba(0, 0, 0, 0.34);
+        }
+
+        .trophy-link:focus {
+            outline: none;
+        }
+
+        .trophy-link:focus-visible {
+            border-radius: 12px;
+            box-shadow: 0 0 0 2px rgba(45, 226, 230, 0.55);
+        }
+
+        .trophy-title {
+            margin: 0;
+            font-size: 1.03rem;
+            line-height: 1.2;
+        }
+
+        .trophy-issuer {
+            margin-top: 6px;
+            margin-bottom: 0;
+            color: var(--muted);
+            font-size: 0.88rem;
+        }
+
+        .trophy-caption {
+            margin-top: auto;
+            width: 100%;
+            min-height: 78px;
+            padding: 10px 12px 8px;
+            border-radius: 13px;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .journey-panel {
+            padding: 26px;
+            overflow: visible;
+        }
+
+        .journey-intro {
+            color: var(--muted);
+            margin-bottom: 18px;
+            line-height: 1.6;
+        }
+
+        .journey-track {
+            position: relative;
+            width: 100%;
+            min-height: 900px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            background:
+                radial-gradient(circle at 80% 14%, rgba(255, 255, 255, 0.2), transparent 20%),
+                radial-gradient(circle at 12% 18%, rgba(198, 255, 0, 0.14), transparent 28%),
+                radial-gradient(circle at 30% 78%, rgba(255, 159, 28, 0.16), transparent 22%),
+                linear-gradient(180deg, #2d4f35 0%, #46683f 36%, #6f7442 57%, #815f38 100%);
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+            overflow: visible;
+        }
+
+        .journey-track::before {
+            content: none;
+        }
+
+        .journey-track::after {
+            content: none;
+        }
+
+        .journey-path {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .journey-path path {
+            fill: none;
+            stroke: rgba(214, 167, 105, 0.9);
+            stroke-width: 30;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .journey-path .journey-glow {
+            stroke: rgba(199, 255, 61, 0.55);
+            stroke-width: 5;
+        }
+
+        .journey-stage {
+            position: absolute;
+            left: var(--x);
+            top: var(--y);
+            transform: translate(-50%, -50%);
+            width: 170px;
+            z-index: 3;
+        }
+
+        .journey-stage:hover,
+        .journey-stage:focus-within,
+        .journey-stage.is-active {
+            z-index: 9;
+        }
+
+        .journey-dot {
+            width: 22px;
+            height: 28px;
+            margin: 0 auto;
+            position: relative;
+            transition: transform 0.22s ease, box-shadow 0.22s ease;
+        }
+
+        .journey-dot::before {
+            content: "";
+            position: absolute;
+            left: 5px;
+            bottom: 0;
+            width: 4px;
+            height: 28px;
+            border-radius: 3px;
+            background: #17211f;
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.18);
+        }
+
+        .journey-dot::after {
+            content: "";
+            position: absolute;
+            left: 9px;
+            top: 2px;
+            width: 13px;
+            height: 10px;
+            background: var(--accent);
+            clip-path: polygon(0 0, 100% 20%, 72% 52%, 100% 84%, 0 100%);
+            border-radius: 2px;
+            box-shadow: 0 0 14px rgba(199, 255, 61, 0.55);
+        }
+
+        .journey-label {
+            margin-top: 14px;
+            text-align: center;
+            color: #fff;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+        }
+
+        .journey-year {
+            display: block;
+            font-size: 0.85rem;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            color: #d7fbe8;
+            margin-bottom: 4px;
+        }
+
+        .journey-title {
+            font-weight: bold;
+            font-size: 0.98rem;
+            line-height: 1.32;
+        }
+
+        .journey-card {
+            position: absolute;
+            left: 50%;
+            top: calc(100% + 10px);
+            transform: translateX(-50%) translateY(8px);
+            width: 240px;
+            padding: 14px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(11, 15, 28, 0.82);
+            color: var(--muted);
+            font-size: 0.9rem;
+            line-height: 1.45;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+            z-index: 12;
+        }
+
+        .journey-stage:hover .journey-dot,
+        .journey-stage:focus-within .journey-dot,
+        .journey-stage.is-active .journey-dot {
+            transform: scale(1.08);
+            filter: drop-shadow(0 0 14px rgba(199, 255, 61, 0.7));
+        }
+
+        .journey-stage:hover .journey-card,
+        .journey-stage:focus-within .journey-card,
+        .journey-stage.is-active .journey-card {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .journey-btn {
+            all: unset;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+        }
+
+        .journey-walker {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 48px;
+            height: 110px;
+            transform: translate(-50%, -60%);
+            transition: none;
+            z-index: 5;
+        }
+
+        .journey-walker .head {
+            position: absolute;
+            top: 0;
+            left: 15px;
+            width: 16px;
+            height: 16px;
+            border: 3px solid #111;
+            border-radius: 50%;
+            background: #f5f5f5;
+        }
+
+        .journey-walker .body {
+            position: absolute;
+            top: 16px;
+            left: 22px;
+            width: 4px;
+            height: 36px;
+            background: #111;
+        }
+
+        .journey-walker .arm {
+            position: absolute;
+            top: 25px;
+            left: 9px;
+            width: 30px;
+            height: 4px;
+            background: #111;
+            transform-origin: center;
+        }
+
+        .journey-walker .leg {
+            position: absolute;
+            top: 49px;
+            left: 22px;
+            width: 4px;
+            height: 40px;
+            background: #111;
+            transform-origin: top center;
+        }
+
+        .journey-walker .leg-a {
+            transform: rotate(20deg);
+        }
+
+        .journey-walker .leg-b {
+            transform: rotate(-20deg);
+        }
+
+        .journey-walker .pack {
+            position: absolute;
+            top: 20px;
+            left: 3px;
+            width: 12px;
+            height: 20px;
+            border-radius: 5px;
+            background: var(--accent-2);
+            border: 2px solid #111;
+        }
+
+        .journey-walker.is-moving {
+            animation: bob 0.22s linear infinite alternate;
+        }
+
+        .journey-walker.is-moving .arm {
+            animation: swing-arm 0.36s ease-in-out infinite alternate;
+        }
+
+        .journey-walker.is-moving .leg-a {
+            animation: step-a 0.36s ease-in-out infinite alternate;
+        }
+
+        .journey-walker.is-moving .leg-b {
+            animation: step-b 0.36s ease-in-out infinite alternate;
+        }
+
+        @keyframes bob {
+            from { transform: translate(-50%, -60%) translateY(0); }
+            to { transform: translate(-50%, -60%) translateY(-3px); }
+        }
+
+        @keyframes swing-arm {
+            from { transform: rotate(-17deg); }
+            to { transform: rotate(17deg); }
+        }
+
+        @keyframes step-a {
+            from { transform: rotate(26deg); }
+            to { transform: rotate(-12deg); }
+        }
+
+        @keyframes step-b {
+            from { transform: rotate(-26deg); }
+            to { transform: rotate(12deg); }
+        }
+
+        .contact-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            max-width: 500px;
+            margin: 0 auto 32px auto;
+        }
+
+        .contact-box {
+            background: transparent;
+            border: 0;
+            padding: 0;
+        }
+
+        .contact-box {
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.12);
+        }
+
+        .contact-box a {
+            color: #fff !important;
+            text-decoration: underline;
+            font-weight: bold;
+            transition: color 0.2s;
+        }
+
+        .contact-box a:hover {
+            color: var(--accent) !important;
+        }
+
+        footer {
+            padding: 22px 0 40px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 980px) {
+            header.hero,
+            .about,
+            .contact-card,
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            #about,
+            #journey {
+                flex-basis: 100%;
+            }
+
+            .trophy-case {
+                padding: 16px;
+            }
+
+            .trophy-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .journey-panel {
+                padding: 18px;
+            }
+
+            .journey-track {
+                min-height: 940px;
+            }
+
+            .journey-track::before {
+                left: 20px;
+                right: 20px;
+            }
+
+            .journey-stage {
+                width: 156px;
+            }
+
+            .journey-card {
+                width: 220px;
+            }
+
+            .hero-card,
+            .hero-art {
+                min-height: auto;
+            }
+        }
+
+        @media (max-width: 640px) {
+            nav {
+                padding: 14px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .quick-stats,
+            .mini-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .journey-panel {
+                padding: 16px;
+            }
+
+            .journey-track {
+                min-height: 980px;
+            }
+
+            .journey-stage {
+                width: 140px;
+            }
+
+            .journey-title {
+                font-size: 0.9rem;
+            }
+
+            .journey-card {
+                width: 190px;
+                top: calc(100% + 8px);
+                font-size: 0.84rem;
+            }
+
+            .trophy-item {
+                width: min(290px, 100%);
+            }
+
+            .trophy-caption {
+                min-height: 88px;
+            }
+
+            .trophy-case-title {
+                margin-bottom: 16px;
+                font-size: 0.92rem;
+                padding: 10px 16px;
+            }
+
+            .hero-card,
+            .hero-art,
+            .about-card,
+            .skills-card,
+            .contact-card,
+            .project {
+                padding: 22px;
+            }
+
+            .hero-art {
+                padding: 0;
+            }
+
+            .trophy-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                letter-spacing: -1px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Removed distracting color orbs -->
+
+    <div class="wrapper">
+        <nav>
+            <div class="brand">
+                <div class="brand-badge">B</div>
+                <span>Benjamin Snook</span>
+            </div>
+            <div class="nav-links">
+                <a href="#about">About Me</a>
+                <a href="#projects">Projects</a>
+                <a href="#certifications">Certifications</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </nav>
+
+        <header class="hero">
+            <div class="hero-card">
+                <h1>
+                    Benjamin Snook
+                </h1>
+                <p>
+                    <strong>Marketing, analytics, design, and anything that peaks my interest.</strong><br /><br />
+                    I'm a Seattle-based marketing professional with an MBA who likes building things, figuring out why people do what they do, and turning messy problems into something that actually works.<br /><br />
+                    I've worked in marketing, retail, operations, e-commerce, and a few things I probably wouldn't have tried if I hadn't been curious.
+                </p>
+
+                <div class="cta-row">
+                    <a class="btn" href="#projects">See what I've built</a>
+                    <a class="btn alt" href="#contact">Get in touch</a>
+                </div>
+
+                <div class="quick-stats">
+                    <div class="stat">
+                        <strong>5+</strong>
+                        <span>Years Experience</span>
+                    </div>
+                    <a class="stat stat-link" href="#certifications">
+                        <strong>6</strong>
+                        <span>Certifications</span>
+                    </a>
+                    <div class="stat">
+                        <strong>Recent</strong>
+                        <span>MBA Graduate</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-art" id="portraitArea">
+                <img class="hero-photo" id="portraitImage" src="portrait.jpg" alt="Portrait of Benjamin Snook" />
+                <div class="speech-bubble" id="portraitBubble"></div>
+            </div>
+        </header>
+
+        <section id="about">
+            <div class="section-head" style="justify-content: center;">
+                <div>
+                    <h2 style="text-align:center;">About Me</h2>
+                </div>
+            </div>
+            <div class="about-card" style="max-width:700px;margin:0 auto 32px auto;text-align:center;">
+                <p style="font-size:1.18rem;line-height:1.7;">
+                    I'm a data-driven marketing professional with an MBA and a passion for finding smarter ways to connect people, ideas, and technology.<br><br>
+                    My work sits at the intersection of marketing, analytics, and emerging technology. I enjoy using data to understand audiences, optimize campaigns, and turn insights into strategies that actually move the needle. From SEO and customer segmentation to social media analytics and automation, I'm always looking for ways to make marketing more thoughtful and effective.<br><br>
+                    I'm particularly interested in the potential of AI and machine learning in marketing, not just as new technologies, but as tools for solving real business problems and creating better experiences.
+                </p>
+            </div>
+
+            <div style="text-align:center; margin-top: 10px; margin-bottom: 24px;">
+                <a class="btn" href="more-about-me.html">More about me!</a>
+            </div>
+        </section>
+
+        <section id="projects">
+            <div class="section-head">
+                <div>
+                    <h2>Projects</h2>
+                </div>
+                <p>
+                    Projects I've started for fun or to make my life easier.
+                </p>
+            </div>
+
+            <div class="projects-grid">
+                <article class="project project-featured">
+                    <span class="label">Featured Build</span>
+                    <h3>SeattlePulse — Full-Stack App</h3>
+                    <p>
+                        I built a Seattle-focused dashboard that brings weather, transit, sports, events, and traffic together
+                        to explain how the city may feel right now, not just list disconnected updates.
+                    </p>
+                    <ul class="project-preview-chips">
+                        <li>Kotlin + Spring Boot</li>
+                        <li>Android + Compose</li>
+                        <li>REST API</li>
+                        <li>Impact Scoring</li>
+                    </ul>
+                    <a href="seattlepulse/index.html" class="btn">Learn More →</a>
+                </article>
+
+                <article class="project">
+                    <span class="label">Trust &amp; Safety Platform</span>
+                    <h3>Commission Reputation Platform</h3>
+                    <p>
+                        I built a trust and safety platform for artists and commissioners to share role-aware reviews,
+                        report suspicious behavior, and handle questionable claims through a moderator-reviewed process.
+                    </p>
+                    <ul class="project-preview-chips">
+                        <li>Next.js + TypeScript</li>
+                        <li>Prisma + PostgreSQL</li>
+                        <li>NextAuth + X OAuth</li>
+                        <li>Moderation Queue</li>
+                    </ul>
+                    <a href="commission-reputation/index.html" class="btn">More details →</a>
+                </article>
+
+                <article class="project">
+                    <span class="label">Etsy Shop</span>
+                    <h3>BuniMunki</h3>
+                    <p>
+                        I started and run a 5-star Etsy shop with 112+ sales. I handle the branding, marketing, product listings,
+                        fulfillment, and customer conversations myself.
+                    </p>
+                    <a href="Bunimunki/index.html" class="btn">View Project Details →</a>
+                </article>
+
+                <article class="project">
+                    <span class="label">App Prototype</span>
+                    <h3>Sleep Solutions App</h3>
+                    <p>
+                        I worked with a team to design a sleep solutions app prototype. We used user research, design thinking,
+                        and analytics to figure out what people actually needed from it.
+                    </p>
+                    <div class="project-key-points">
+                        <p>Key Points:</p>
+                        <ul>
+                            <li>Identified key moments of struggle (MoS) related to sleep deficiency</li>
+                            <li>Proposed solutions</li>
+                            <li>Received strong validation from survey feedback</li>
+                            <li>Focused on value scaling and social value generation</li>
+                            <li>Evidence showed customers are both pushed away from weak current solutions and pulled toward the app's superior value</li>
+                        </ul>
+                    </div>
+                    <a href="#" class="btn sleep-solutions-slideshow-btn">Learn More</a>
+                </article>
+
+                <article class="project">
+                    <span class="label">Marketing Campaign</span>
+                    <h3>Shifting Gears</h3>
+                    <p>
+                        I worked on the "Shifting Gears" campaign to help a regional business think through its digital transformation.
+                        I developed the strategy, managed content, and used campaign data to see what was working.
+                    </p>
+                    <div class="project-key-points">
+                        <p>Key Points:</p>
+                        <ul>
+                            <li>Market and competitor analysis</li>
+                            <li>Identified problems</li>
+                            <li>Proposed solutions</li>
+                            <li>Supported solutions with primary and secondary data</li>
+                            <li>Conducted surveys</li>
+                            <li>Designed prototypes of marketing materials</li>
+                        </ul>
+                    </div>
+                    <a href="#" class="btn shifting-gears-slideshow-btn">Learn More</a>
+                </article>
+            </div>
+        </section>
+
+        <section id="journey">
+            <div class="section-head">
+                <div>
+                    <h2>Journey</h2>
+                </div>
+                <p>
+                    A hero's-journey path through academic milestones, work experience, and personal projects.
+                </p>
+            </div>
+
+            <div class="journey-panel">
+                <div aria-label="S-curve resume timeline">
+                    <div class="journey-track" id="journeyTrack">
+                        <svg class="journey-path" viewBox="0 0 1200 900" preserveAspectRatio="none" aria-hidden="true">
+                            <path d="M 600 860 C 1050 860, 1050 720, 600 720 S 150 560, 600 560 S 1050 400, 600 400 S 150 240, 600 240 S 1050 80, 600 80" />
+                            <path class="journey-glow" d="M 600 860 C 1050 860, 1050 720, 600 720 S 150 560, 600 560 S 1050 400, 600 400 S 150 240, 600 240 S 1050 80, 600 80" />
+                        </svg>
+
+                        <div class="journey-stage" style="--x: 50%; --y: 8%;" data-order="0" data-path-pct="0.02">
+                            <button class="journey-btn" type="button" aria-label="2017 high school graduation">
+                                <div class="journey-dot"></div>
+                                <div class="journey-label">
+                                    <span class="journey-year">2017</span>
+                                    <span class="journey-title">High School Graduation</span>
+                                </div>
+                                <div class="journey-card">
+                                    Graduated high school and began the next chapter in higher education.
+                                </div>
+                            </button>
+                        </div>
+
+                        <div class="journey-stage" style="--x: 50%; --y: 44%;" data-order="1" data-path-pct="0.24">
+                            <button class="journey-btn" type="button" aria-label="2020 bachelors in marketing graduation">
+                                <div class="journey-dot"></div>
+                                <div class="journey-label">
+                                    <span class="journey-year">2020</span>
+                                    <span class="journey-title">Bachelors in Marketing</span>
+                                </div>
+                                <div class="journey-card">
+                                    Graduated from WSU with a Bachelors in Marketing.
+                                </div>
+                            </button>
+                        </div>
+
+                        <div class="journey-stage" style="--x: 12.5%; --y: 62%;" data-order="2" data-path-pct="0.42">
+                            <button class="journey-btn" type="button" aria-label="2022 started bunimunki">
+                                <div class="journey-dot"></div>
+                                <div class="journey-label">
+                                    <span class="journey-year">2022</span>
+                                    <span class="journey-title">Started BuniMunki</span>
+                                </div>
+                                <div class="journey-card">
+                                    Personal Project: launched BuniMunki as an Etsy brand and began
+                                    building products, listings, and customer engagement systems.
+                                </div>
+                            </button>
+                        </div>
+
+                        <div class="journey-stage" style="--x: 50%; --y: 80%;" data-order="3" data-path-pct="0.60">
+                            <button class="journey-btn" type="button" aria-label="2022 to 2024 chipotle kitchen manager">
+                                <div class="journey-dot"></div>
+                                <div class="journey-label">
+                                    <span class="journey-year">2022-2024</span>
+                                    <span class="journey-title">Chipotle Kitchen Manager</span>
+                                </div>
+                                <div class="journey-card">
+                                    Work History: managed kitchen operations, team coordination,
+                                    and high-volume service execution.
+                                </div>
+                            </button>
+                        </div>
+
+                        <div class="journey-stage" style="--x: 50%; --y: 87%;" data-order="4" data-path-pct="0.74">
+                            <button class="journey-btn" type="button" aria-label="2024 MBA from WSU">
+                                <div class="journey-dot"></div>
+                                <div class="journey-label">
+                                    <span class="journey-year">2024</span>
+                                    <span class="journey-title">MBA from WSU</span>
+                                </div>
+                                <div class="journey-card">
+                                    Academic Milestone: completed MBA at Washington State University.
+                                </div>
+                            </button>
+                        </div>
+
+                        <div class="journey-stage" style="--x: 74%; --y: 90%;" data-order="5" data-path-pct="0.86">
+                            <button class="journey-btn" type="button" aria-label="2025 started learning AI tools and personal projects">
+                                <div class="journey-dot"></div>
+                                <div class="journey-label">
+                                    <span class="journey-year">2025</span>
+                                    <span class="journey-title">Started Learning AI Tools</span>
+                                </div>
+                                <div class="journey-card">
+                                    Began using AI tools and building personal projects to sharpen workflow,
+                                    creativity, and technical execution.
+                                </div>
+                            </button>
+                        </div>
+
+                        <div class="journey-stage" style="--x: 87.5%; --y: 94%;" data-order="6" data-path-pct="0.96">
+                            <button class="journey-btn" type="button" aria-label="2025 started at seattle kraken team store">
+                                <div class="journey-dot"></div>
+                                <div class="journey-label">
+                                    <span class="journey-year">2025-Present</span>
+                                    <span class="journey-title">Seattle Kraken Team Store</span>
+                                </div>
+                                <div class="journey-card">
+                                    Current Work History: retail associate supporting sales,
+                                    merchandising, and fan-focused customer experience.
+                                </div>
+                            </button>
+                        </div>
+
+                        <div class="journey-walker" id="journeyWalker" aria-hidden="true">
+                            <span class="head"></span>
+                            <span class="pack"></span>
+                            <span class="body"></span>
+                            <span class="arm"></span>
+                            <span class="leg leg-a"></span>
+                            <span class="leg leg-b"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="certifications">
+            <div class="section-head">
+                <div>
+                    <h2>Certifications</h2>
+                </div>
+                <p>
+                    Trophy case of certifications. Hover each trophy to preview and click to view the full certificate.
+                </p>
+            </div>
+            <div class="trophy-case">
+                <div class="trophy-case-title">Certified Achievement Case</div>
+                <div class="trophy-grid">
+                <article class="trophy-item">
+                    <a href="#" class="trophy-link cert-thumb-link" data-full="certificates/Google%20Ads.PNG" aria-label="View Google Ads certificate">
+                        <div class="trophy-emblem logo-google">Google</div>
+                        <div class="trophy-hover">
+                            <strong class="trophy-hover-title">Google Ads Certified</strong>
+                            <img src="certificates/Google%20Ads.PNG" alt="Google Ads certificate preview" />
+                            <span>Click to view full certificate</span>
+                        </div>
+                    </a>
+                    <div class="trophy-caption">
+                        <h3 class="trophy-title">Google Ads Certified</h3>
+                        <p class="trophy-issuer">Google</p>
+                    </div>
+                </article>
+
+                <article class="trophy-item">
+                    <a href="#" class="trophy-link cert-thumb-link" data-full="certificates/IBM.PNG" aria-label="View IBM certificate">
+                        <div class="trophy-emblem logo-ibm">IBM</div>
+                        <div class="trophy-hover">
+                            <strong class="trophy-hover-title">Enterprise Design Thinking Practitioner</strong>
+                            <img src="certificates/IBM.PNG" alt="IBM certificate preview" />
+                            <span>Click to view full certificate</span>
+                        </div>
+                    </a>
+                    <div class="trophy-caption">
+                        <h3 class="trophy-title">Enterprise Design Thinking Practitioner</h3>
+                        <p class="trophy-issuer">IBM</p>
+                    </div>
+                </article>
+
+                <article class="trophy-item">
+                    <a href="certificates/google%20analytics%20advanced.pdf" target="_blank" rel="noopener noreferrer" class="trophy-link" aria-label="Open Google Data Analytics certificate PDF">
+                        <div class="trophy-emblem logo-google">Google</div>
+                        <div class="trophy-hover trophy-hover-pdf">
+                            <strong class="trophy-hover-title">Google Data Analytics Professional Certificate</strong>
+                            <div class="trophy-hover-file">PDF Certificate</div>
+                            <span>Open PDF certificate</span>
+                        </div>
+                    </a>
+                    <div class="trophy-caption">
+                        <h3 class="trophy-title">Google Data Analytics Professional Certificate</h3>
+                        <p class="trophy-issuer">Google</p>
+                    </div>
+                </article>
+
+                <article class="trophy-item">
+                    <a href="#" class="trophy-link cert-thumb-link" data-full="certificates/hubspot%20inbound%20badge.PNG" aria-label="View HubSpot inbound certificate">
+                        <div class="trophy-emblem logo-hubspot">HubSpot</div>
+                        <div class="trophy-hover">
+                            <strong class="trophy-hover-title">Inbound Marketing Certified</strong>
+                            <img src="certificates/hubspot%20inbound%20badge.PNG" alt="HubSpot inbound certificate preview" />
+                            <span>Click to view full certificate</span>
+                        </div>
+                    </a>
+                    <div class="trophy-caption">
+                        <h3 class="trophy-title">Inbound Marketing Certified</h3>
+                        <p class="trophy-issuer">HubSpot</p>
+                    </div>
+                </article>
+
+                <article class="trophy-item">
+                    <a href="#" class="trophy-link cert-thumb-link" data-full="certificates/Hubspot%20social%20media.png" aria-label="View HubSpot social media certificate">
+                        <div class="trophy-emblem logo-hubspot">HubSpot</div>
+                        <div class="trophy-hover">
+                            <strong class="trophy-hover-title">Social Media Certified</strong>
+                            <img src="certificates/Hubspot%20social%20media.png" alt="HubSpot social media certificate preview" />
+                            <span>Click to view full certificate</span>
+                        </div>
+                    </a>
+                    <div class="trophy-caption">
+                        <h3 class="trophy-title">Social Media Certified</h3>
+                        <p class="trophy-issuer">HubSpot</p>
+                    </div>
+                </article>
+
+                <article class="trophy-item">
+                    <a href="certificates/hootsuite.pdf" target="_blank" rel="noopener noreferrer" class="trophy-link" aria-label="Open Hootsuite certificate PDF">
+                        <div class="trophy-emblem logo-hootsuite">Hootsuite</div>
+                        <div class="trophy-hover trophy-hover-pdf">
+                            <strong class="trophy-hover-title">Hootsuite</strong>
+                            <div class="trophy-hover-file">PDF Certificate</div>
+                            <span>Open PDF certificate</span>
+                        </div>
+                    </a>
+                    <div class="trophy-caption">
+                        <h3 class="trophy-title">Hootsuite</h3>
+                        <p class="trophy-issuer">Hootsuite</p>
+                    </div>
+                </article>
+
+                <article class="trophy-item">
+                    <a href="certificates/intro%20to%20SQL.pdf" target="_blank" rel="noopener noreferrer" class="trophy-link" aria-label="Open Intro to SQL certificate PDF">
+                        <div class="trophy-emblem logo-sql">SQL</div>
+                        <div class="trophy-hover trophy-hover-pdf">
+                            <strong class="trophy-hover-title">Intro to SQL</strong>
+                            <div class="trophy-hover-file">PDF Certificate</div>
+                            <span>Open PDF certificate</span>
+                        </div>
+                    </a>
+                    <div class="trophy-caption">
+                        <h3 class="trophy-title">Intro to SQL</h3>
+                        <p class="trophy-issuer">SQL</p>
+                    </div>
+                </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="section-head">
+                <div>
+                    <h2>Contact</h2>
+                </div>
+                <p>
+                    Get in touch for freelance work, collaborations, or to request my full resume.
+                </p>
+            </div>
+            <div class="contact-card">
+                <div class="contact-box">
+                    <h3>Let's Connect</h3>
+                    <p>
+                        Email: <a href="mailto:benjaminsnook3@gmail.com">benjaminsnook3@gmail.com</a><br>
+                        Location: Seattle, WA<br>
+                        Etsy: <a href="https://www.etsy.com/shop/BuniMunki" target="_blank">BuniMunki</a><br>
+                        LinkedIn: <a href="https://www.linkedin.com/in/benjamin-snook/" target="_blank">benjamin-snook</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            © 2026 Benjamin Snook<br />
+            Thanks for making it this far.
+        </footer>
+    </div>
+</body>
+</html>
+
+<script>
+    // Shifting Gears slideshow logic
+    document.addEventListener('DOMContentLoaded', function() {
+        const images = [
+            'Shifting Gears Presentations/slide1.png',
+            'Shifting Gears Presentations/slide2.png',
+            'Shifting Gears Presentations/slide3.png',
+            'Shifting Gears Presentations/slide4.png',
+            'Shifting Gears Presentations/slide5.png',
+            'Shifting Gears Presentations/slide6.png',
+            'Shifting Gears Presentations/slide7.png',
+            'Shifting Gears Presentations/slide8.png',
+            'Shifting Gears Presentations/slide9.png',
+        ];
+        document.querySelectorAll('.shifting-gears-slideshow-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                let idx = 0;
+                let modal = document.createElement('div');
+                modal.style.position = 'fixed';
+                modal.style.top = 0;
+                modal.style.left = 0;
+                modal.style.width = '100vw';
+                modal.style.height = '100vh';
+                modal.style.background = 'rgba(0,0,0,0.85)';
+                modal.style.display = 'flex';
+                modal.style.alignItems = 'center';
+                modal.style.justifyContent = 'center';
+                modal.style.zIndex = 10000;
+                modal.innerHTML = `
+                    <button id="sg-close" style="position:absolute;top:32px;right:48px;font-size:2rem;background:none;border:none;color:#fff;cursor:pointer;z-index:10001;">&times;</button>
+                    <button id="sg-prev" style="position:absolute;left:32px;top:50%;transform:translateY(-50%);font-size:2.5rem;background:none;border:none;color:#fff;cursor:pointer;z-index:10001;">&#8592;</button>
+                    <img id="sg-img" src="${images[idx]}" alt="Shifting Gears Slide" style="max-width:90vw;max-height:80vh;border-radius:18px;box-shadow:0 8px 40px #000;background:#fff;display:block;margin:0 auto;" />
+                    <button id="sg-next" style="position:absolute;right:32px;top:50%;transform:translateY(-50%);font-size:2.5rem;background:none;border:none;color:#fff;cursor:pointer;z-index:10001;">&#8594;</button>
+                `;
+                document.body.appendChild(modal);
+                function updateImg() {
+                    document.getElementById('sg-img').src = images[idx];
+                }
+                document.getElementById('sg-prev').onclick = function(ev) {
+                    ev.stopPropagation();
+                    idx = (idx - 1 + images.length) % images.length;
+                    updateImg();
+                };
+                document.getElementById('sg-next').onclick = function(ev) {
+                    ev.stopPropagation();
+                    idx = (idx + 1) % images.length;
+                    updateImg();
+                };
+                document.getElementById('sg-close').onclick = function(ev) {
+                    ev.stopPropagation();
+                    document.body.removeChild(modal);
+                };
+                modal.onclick = function(ev) {
+                    if (ev.target === modal) document.body.removeChild(modal);
+                };
+            });
+        });
+
+        const sleepImages = [
+            'Presentation899/Slide1.PNG',
+            'Presentation899/Slide2.PNG',
+            'Presentation899/Slide3.PNG',
+            'Presentation899/Slide4.PNG',
+            'Presentation899/Slide5.PNG',
+            'Presentation899/Slide6.PNG',
+            'Presentation899/Slide7.PNG',
+            'Presentation899/Slide8.PNG',
+            'Presentation899/Slide9.PNG',
+            'Presentation899/Slide10.PNG',
+            'Presentation899/Slide11.PNG',
+            'Presentation899/Slide12.PNG',
+            'Presentation899/Slide13.PNG',
+            'Presentation899/Slide14.PNG',
+            'Presentation899/Slide15.PNG',
+            'Presentation899/Slide16.PNG',
+            'Presentation899/Slide17.PNG',
+            'Presentation899/Slide18.PNG',
+            'Presentation899/Slide19.PNG',
+            'Presentation899/Slide20.PNG',
+            'Presentation899/Slide21.PNG',
+            'Presentation899/Slide22.PNG',
+            'Presentation899/Slide23.PNG',
+            'Presentation899/Slide24.PNG',
+            'Presentation899/Slide25.PNG'
+        ];
+
+        document.querySelectorAll('.sleep-solutions-slideshow-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                let idx = 0;
+                let modal = document.createElement('div');
+                modal.style.position = 'fixed';
+                modal.style.top = 0;
+                modal.style.left = 0;
+                modal.style.width = '100vw';
+                modal.style.height = '100vh';
+                modal.style.background = 'rgba(0,0,0,0.85)';
+                modal.style.display = 'flex';
+                modal.style.alignItems = 'center';
+                modal.style.justifyContent = 'center';
+                modal.style.zIndex = 10000;
+                modal.innerHTML = `
+                    <button id="sleep-close" style="position:absolute;top:32px;right:48px;font-size:2rem;background:none;border:none;color:#fff;cursor:pointer;z-index:10001;">&times;</button>
+                    <button id="sleep-prev" style="position:absolute;left:32px;top:50%;transform:translateY(-50%);font-size:2.5rem;background:none;border:none;color:#fff;cursor:pointer;z-index:10001;">&#8592;</button>
+                    <img id="sleep-img" src="${sleepImages[idx]}" alt="Sleep Solutions Slide" style="max-width:90vw;max-height:80vh;border-radius:18px;box-shadow:0 8px 40px #000;background:#fff;display:block;margin:0 auto;" />
+                    <button id="sleep-next" style="position:absolute;right:32px;top:50%;transform:translateY(-50%);font-size:2.5rem;background:none;border:none;color:#fff;cursor:pointer;z-index:10001;">&#8594;</button>
+                `;
+                document.body.appendChild(modal);
+                function updateImg() {
+                    document.getElementById('sleep-img').src = sleepImages[idx];
+                }
+                document.getElementById('sleep-prev').onclick = function(ev) {
+                    ev.stopPropagation();
+                    idx = (idx - 1 + sleepImages.length) % sleepImages.length;
+                    updateImg();
+                };
+                document.getElementById('sleep-next').onclick = function(ev) {
+                    ev.stopPropagation();
+                    idx = (idx + 1) % sleepImages.length;
+                    updateImg();
+                };
+                document.getElementById('sleep-close').onclick = function(ev) {
+                    ev.stopPropagation();
+                    document.body.removeChild(modal);
+                };
+                modal.onclick = function(ev) {
+                    if (ev.target === modal) document.body.removeChild(modal);
+                };
+            });
+        });
+
+        document.querySelectorAll('.cert-thumb-link[data-full]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                const certImg = this.getAttribute('data-full');
+                if (!certImg) {
+                    return;
+                }
+
+                let modal = document.createElement('div');
+                modal.style.position = 'fixed';
+                modal.style.top = 0;
+                modal.style.left = 0;
+                modal.style.width = '100vw';
+                modal.style.height = '100vh';
+                modal.style.background = 'rgba(0,0,0,0.85)';
+                modal.style.display = 'flex';
+                modal.style.alignItems = 'center';
+                modal.style.justifyContent = 'center';
+                modal.style.zIndex = 10000;
+                modal.innerHTML = `
+                    <button id="cert-close" style="position:absolute;top:32px;right:48px;font-size:2rem;background:none;border:none;color:#fff;cursor:pointer;z-index:10001;">&times;</button>
+                    <img id="cert-img" src="${certImg}" alt="Certification image" style="max-width:90vw;max-height:80vh;border-radius:18px;box-shadow:0 8px 40px #000;background:#fff;display:block;margin:0 auto;" />
+                `;
+
+                document.body.appendChild(modal);
+
+                document.getElementById('cert-close').onclick = function(ev) {
+                    ev.stopPropagation();
+                    document.body.removeChild(modal);
+                };
+
+                modal.onclick = function(ev) {
+                    if (ev.target === modal) {
+                        document.body.removeChild(modal);
+                    }
+                };
+            });
+        });
+
+        const portraitArea = document.getElementById('portraitArea');
+        const portraitImage = document.getElementById('portraitImage');
+        const portraitBubble = document.getElementById('portraitBubble');
+        const GREETING_MESSAGE = "Hey, how's it going?";
+        const skillMessages = [
+            "Yeah, I built this site myself.",
+            "This animation took way longer than it should have.",
+            "I should probably fix that typo.",
+            "Okay, you've hovered enough."
+        ];
+        let hasGreeted = false;
+        let skillIndex = 0;
+
+        if (portraitArea && portraitImage && portraitBubble) {
+            portraitArea.addEventListener('mouseenter', function() {
+                portraitImage.src = `yap.gif?play=${Date.now()}`;
+
+                if (!hasGreeted) {
+                    portraitBubble.textContent = GREETING_MESSAGE;
+                    hasGreeted = true;
+                } else {
+                    portraitBubble.textContent = skillMessages[skillIndex];
+                    skillIndex = (skillIndex + 1) % skillMessages.length;
+                }
+
+                portraitArea.classList.add('is-talking');
+            });
+
+            portraitArea.addEventListener('mouseleave', function() {
+                portraitImage.src = 'portrait.jpg';
+                portraitArea.classList.remove('is-talking');
+            });
+        }
+
+        const journeyTrack = document.getElementById('journeyTrack');
+        const journeyWalker = document.getElementById('journeyWalker');
+        const journeyStages = document.querySelectorAll('.journey-stage');
+        const journeySvg = document.querySelector('.journey-path');
+        const journeyMainPath = document.querySelector('.journey-path path:not(.journey-glow)');
+
+        if (journeyTrack && journeyWalker && journeySvg && journeyStages.length) {
+            const WALKER_TRAIL_OFFSET_Y = -44;
+            let currentPathPct = 0;
+            let walkerAnimationId = null;
+
+            const clampPct = function(value) {
+                return Math.max(0, Math.min(1, value));
+            };
+
+            const getStagePathPct = function(stage) {
+                const pct = Number(stage.getAttribute('data-path-pct'));
+                return clampPct(Number.isNaN(pct) ? 0 : pct);
+            };
+
+            const getRenderedPathPoint = function(pct) {
+                const total = journeyMainPath.getTotalLength();
+                const point = journeyMainPath.getPointAtLength(total * clampPct(pct));
+                const viewBox = journeySvg.viewBox.baseVal;
+
+                return {
+                    x: point.x * (journeySvg.clientWidth / viewBox.width),
+                    y: point.y * (journeySvg.clientHeight / viewBox.height)
+                };
+            };
+
+            const positionStagesOnPath = function(stages) {
+                if (!journeyMainPath) {
+                    return;
+                }
+
+                stages.forEach((stage) => {
+                    const pct = Number(stage.getAttribute('data-path-pct'));
+                    if (Number.isNaN(pct)) {
+                        return;
+                    }
+
+                    const clamped = Math.max(0, Math.min(1, pct));
+                    const pt = getRenderedPathPoint(clamped);
+                    stage.style.left = `${pt.x}px`;
+                    stage.style.top = `${pt.y}px`;
+                });
+            };
+
+            const setWalkerAtPct = function(pct) {
+                if (!journeyMainPath) {
+                    return;
+                }
+
+                const pt = getRenderedPathPoint(pct);
+                journeyWalker.style.left = `${pt.x}px`;
+                journeyWalker.style.top = `${pt.y + WALKER_TRAIL_OFFSET_Y}px`;
+            };
+
+            const animateWalkerToPct = function(targetPct, instant) {
+                const clampedTarget = clampPct(targetPct);
+
+                if (walkerAnimationId !== null) {
+                    window.cancelAnimationFrame(walkerAnimationId);
+                    walkerAnimationId = null;
+                }
+
+                if (instant) {
+                    currentPathPct = clampedTarget;
+                    setWalkerAtPct(currentPathPct);
+                    journeyWalker.classList.remove('is-moving');
+                    return;
+                }
+
+                const startPct = currentPathPct;
+                const delta = clampedTarget - startPct;
+                if (Math.abs(delta) < 0.001) {
+                    setWalkerAtPct(clampedTarget);
+                    journeyWalker.classList.remove('is-moving');
+                    return;
+                }
+
+                const duration = Math.max(380, Math.min(1200, 420 + (Math.abs(delta) * 1100)));
+                let startTime = null;
+                journeyWalker.classList.add('is-moving');
+
+                const easeInOut = function(t) {
+                    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+                };
+
+                const tick = function(timestamp) {
+                    if (startTime === null) {
+                        startTime = timestamp;
+                    }
+
+                    const elapsed = timestamp - startTime;
+                    const progress = Math.min(1, elapsed / duration);
+                    const eased = easeInOut(progress);
+
+                    currentPathPct = startPct + (delta * eased);
+                    setWalkerAtPct(currentPathPct);
+
+                    if (progress < 1) {
+                        walkerAnimationId = window.requestAnimationFrame(tick);
+                    } else {
+                        currentPathPct = clampedTarget;
+                        setWalkerAtPct(currentPathPct);
+                        journeyWalker.classList.remove('is-moving');
+                        walkerAnimationId = null;
+                    }
+                };
+
+                walkerAnimationId = window.requestAnimationFrame(tick);
+            };
+
+            const moveWalkerTo = function(stage, instant) {
+                const targetPct = getStagePathPct(stage);
+
+                journeyStages.forEach((item) => item.classList.remove('is-active'));
+                stage.classList.add('is-active');
+
+                animateWalkerToPct(targetPct, Boolean(instant));
+            };
+
+            const orderedStages = Array.from(journeyStages).sort((a, b) => {
+                return Number(a.getAttribute('data-order')) - Number(b.getAttribute('data-order'));
+            });
+
+            positionStagesOnPath(orderedStages);
+            currentPathPct = getStagePathPct(orderedStages[0]);
+            moveWalkerTo(orderedStages[0], true);
+
+            orderedStages.forEach((stage) => {
+                stage.addEventListener('mouseenter', function() {
+                    moveWalkerTo(stage);
+                });
+
+                const button = stage.querySelector('.journey-btn');
+                if (button) {
+                    button.addEventListener('focus', function() {
+                        moveWalkerTo(stage);
+                    });
+                }
+            });
+
+            window.addEventListener('resize', function() {
+                const activeStage = journeyTrack.querySelector('.journey-stage.is-active') || orderedStages[0];
+                positionStagesOnPath(orderedStages);
+                currentPathPct = getStagePathPct(activeStage);
+                moveWalkerTo(activeStage, true);
+            });
+        }
+    });
+</script>

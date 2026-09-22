@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Commission Reputation - Project Breakdown</title>
+    <style>
+        :root {
+            --bg: #101114;
+            --bg-soft: #17191e;
+            --panel: transparent;
+            --line: rgba(255, 255, 255, 0.2);
+            --text: #f5f5f2;
+            --muted: #c4c6ce;
+            --accent: #c7ff3d;
+            --accent-2: #ff7a59;
+            --shadow: 0 24px 52px rgba(0, 0, 0, 0.35);
+            --radius: 24px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--text);
+            background:
+                repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.045) 0 1px, transparent 1px 48px),
+                repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 48px),
+                radial-gradient(circle at 14% 5%, rgba(255, 122, 89, 0.12), transparent 28%),
+                radial-gradient(circle at 85% 0%, rgba(199, 255, 61, 0.1), transparent 32%),
+                linear-gradient(145deg, var(--bg) 0%, var(--bg-soft) 45%, #121316 100%);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .wrapper {
+            width: min(1050px, calc(100% - 28px));
+            margin: 28px auto 36px;
+        }
+
+        .glass {
+            background: transparent;
+            border: 0;
+            border-radius: 0;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            box-shadow: none;
+        }
+
+        .hero {
+            padding: 30px;
+            margin-bottom: 16px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .kicker {
+            display: inline-block;
+            margin-bottom: 11px;
+            color: var(--accent-2);
+            letter-spacing: 1.3px;
+            text-transform: uppercase;
+            font-size: 0.82rem;
+        }
+
+        h1 {
+            font-size: clamp(2.1rem, 4.8vw, 3.2rem);
+            line-height: 1.08;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            color: var(--muted);
+            max-width: 78ch;
+            margin-bottom: 18px;
+        }
+
+        .cta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            border-radius: 12px;
+            padding: 10px 15px;
+            font-weight: 700;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #111;
+        }
+
+        .btn-secondary {
+            border: 1px solid var(--line);
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .stat {
+            border-radius: 14px;
+            border: 1px solid var(--line);
+            background: transparent;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 1.3rem;
+            margin-bottom: 2px;
+        }
+
+        .stat span {
+            color: var(--muted);
+            font-size: 0.86rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+
+        .card {
+            padding: 22px;
+            border-top: 1px solid var(--line);
+        }
+
+        .card h2 {
+            font-size: 1.27rem;
+            margin-bottom: 9px;
+        }
+
+        .card p {
+            color: var(--muted);
+        }
+
+        .list {
+            color: var(--muted);
+            margin-left: 18px;
+            display: grid;
+            gap: 6px;
+        }
+
+        .shot-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .shot {
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            background: rgba(7, 12, 24, 0.8);
+        }
+
+        .shot img {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+            display: block;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .shot figcaption {
+            padding: 10px;
+            color: var(--muted);
+            font-size: 0.88rem;
+        }
+
+        .shot-placeholder {
+            height: 230px;
+            display: grid;
+            place-items: center;
+            text-align: center;
+            padding: 18px;
+            color: #dceaff;
+            font-weight: 700;
+            background:
+                linear-gradient(145deg, rgba(255, 122, 89, 0.12), rgba(199, 255, 61, 0.1)),
+                repeating-linear-gradient(
+                    -45deg,
+                    rgba(255, 255, 255, 0.06),
+                    rgba(255, 255, 255, 0.06) 10px,
+                    rgba(255, 255, 255, 0.02) 10px,
+                    rgba(255, 255, 255, 0.02) 20px
+                );
+        }
+
+        .code-block {
+            margin-top: 10px;
+            border-radius: 14px;
+            border: 1px solid var(--line);
+            background: #050913;
+            overflow-x: auto;
+        }
+
+        .code-block pre {
+            margin: 0;
+            padding: 14px;
+            color: #d7e7ff;
+            font-size: 0.84rem;
+            line-height: 1.45;
+        }
+
+        .timeline {
+            margin-top: 10px;
+            display: grid;
+            gap: 10px;
+        }
+
+        .timeline-item {
+            border-radius: 12px;
+            border: 1px solid var(--line);
+            background: transparent;
+            padding: 11px 12px;
+        }
+
+        .timeline-item strong {
+            color: var(--accent-2);
+        }
+
+        footer {
+            text-align: center;
+            color: var(--muted);
+            margin-top: 16px;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 900px) {
+            .grid,
+            .shot-grid,
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .hero,
+            .card {
+                padding: 20px;
+            }
+
+            .shot img,
+            .shot-placeholder {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="wrapper">
+        <section class="hero glass">
+            <span class="kicker">Project Case Study</span>
+            <h1>Commission Reputation Platform</h1>
+            <p>
+                A trust and reputation web platform for artists and commissioners. The product helps people make safer commission decisions by collecting verified experience signals, structured reviews, and moderated fraud reporting.
+            </p>
+            <div class="cta-row">
+                <a class="btn btn-primary" href="https://commission-reputation.vercel.app" target="_blank" rel="noopener noreferrer">Open Live Site</a>
+                <a class="btn btn-secondary" href="../Untitled-1.html#projects">Back to Portfolio</a>
+            </div>
+
+            <div class="stats">
+                <div class="stat">
+                    <strong>Full Stack</strong>
+                    <span>Next.js, Prisma, PostgreSQL</span>
+                </div>
+                <div class="stat">
+                    <strong>Auth</strong>
+                    <span>NextAuth + X OAuth</span>
+                </div>
+                <div class="stat">
+                    <strong>Safety</strong>
+                    <span>Moderated report workflows</span>
+                </div>
+                <div class="stat">
+                    <strong>Scope</strong>
+                    <span>End-to-end product delivery</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="card glass" style="margin-bottom: 14px;">
+            <h2>Purpose</h2>
+            <p>
+                Commission spaces often rely on scattered social proof and private warning lists. This platform centralizes reputation signals into one transparent destination where community reporting is allowed, but deletion and enforcement stay moderator-controlled to reduce abuse.
+            </p>
+        </section>
+
+        <section class="grid" style="margin-bottom: 14px;">
+            <article class="card glass">
+                <h2>How It Was Built</h2>
+                <ul class="list">
+                    <li>Designed database models for profiles, dual-role reviews, scam reports, and moderation decisions.</li>
+                    <li>Implemented role-aware submission flows so users can review as artist, commissioner, or both.</li>
+                    <li>Added soft-delete moderation for review reports flagged as unserious or fabricated.</li>
+                    <li>Integrated sign-in using X OAuth with server-side session handling.</li>
+                    <li>Deployed to Vercel with Neon PostgreSQL and Prisma schema sync during builds.</li>
+                </ul>
+            </article>
+
+            <article class="card glass">
+                <h2>Technical Stack</h2>
+                <ul class="list">
+                    <li>Frontend: Next.js App Router + TypeScript</li>
+                    <li>Backend: API routes in Next.js server runtime</li>
+                    <li>Database: Prisma ORM + PostgreSQL</li>
+                    <li>Authentication: NextAuth with Twitter/X provider</li>
+                    <li>Validation and scoring: zod + custom ranking logic</li>
+                </ul>
+            </article>
+        </section>
+
+        <section class="card glass" style="margin-bottom: 14px;">
+            <h2>Website and Code Screenshots</h2>
+            <p>
+                Website and implementation screenshots from the live product and API workflow.
+            </p>
+            <div class="shot-grid">
+                <figure class="shot">
+                    <img src="Screenshot%201.png" alt="Commission Reputation home page screenshot" />
+                    <figcaption>Home page: trust-first positioning and profile discovery UI.</figcaption>
+                </figure>
+
+                <figure class="shot">
+                    <img src="Screenshot%202.png" alt="Commission Reputation profile page screenshot" />
+                    <figcaption>Profile page: ratings, review cards, and moderation-aware reporting controls.</figcaption>
+                </figure>
+
+                <figure class="shot">
+                    <img src="Screenshot%203.png" alt="Commission Reputation code screenshot" />
+                    <figcaption>Database schema highlights for review reports and moderation state transitions.</figcaption>
+                </figure>
+
+                <figure class="shot">
+                    <img src="Screenshot%204%20.png" alt="API route for review report submission" />
+                    <figcaption>API route handling review report submission validation and creation.</figcaption>
+                </figure>
+
+                <figure class="shot">
+                    <img src="Screenshot%205.png" alt="API route for moderator decision workflow" />
+                    <figcaption>Moderator decision route with dismiss or remove flow and transactional updates.</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section class="grid" style="margin-bottom: 14px;">
+            <article class="card glass">
+                <h2>Architecture Snapshot</h2>
+                <div class="code-block">
+<pre>Browser UI
+  -> Next.js App Router pages
+  -> API routes (/api/reviews, /api/moderation/*)
+  -> Prisma client
+  -> PostgreSQL (Neon)</pre>
+                </div>
+            </article>
+
+            <article class="card glass">
+                <h2>Representative Code Excerpt</h2>
+                <div class="code-block">
+<pre>datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}</pre>
+                </div>
+            </article>
+        </section>
+
+        <section class="card glass">
+            <h2>Build Timeline</h2>
+            <div class="timeline">
+                <div class="timeline-item"><strong>Phase 1:</strong> Core profile and review model with dual-role support.</div>
+                <div class="timeline-item"><strong>Phase 2:</strong> Scam report taxonomy and evidence-backed status handling.</div>
+                <div class="timeline-item"><strong>Phase 3:</strong> Review-abuse reports with moderator-only removal decisions.</div>
+                <div class="timeline-item"><strong>Phase 4:</strong> Deployment hardening, secret guards, and cloud database migration.</div>
+            </div>
+        </section>
+
+        <footer>
+            Commission Reputation project breakdown page
+        </footer>
+    </main>
+</body>
+</html>
